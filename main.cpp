@@ -11,6 +11,8 @@ private:
     const uint32_t INITIAL_WINDOW_WIDTH = 800;
     const uint32_t INITIAL_WINDOW_HEIGHT = 600;
 
+    VkInstance instance;
+
 
 public:
     void run() {
@@ -26,11 +28,11 @@ private:
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-        window = glfwCreateWindow(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, "VulkanTest", nullptr, nullptr);
+        window = glfwCreateWindow(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, "Vulkan Test", nullptr, nullptr);
     }
 
     void initVulkan() {
-
+        createInstance();
     }
 
     void mainLoop() {
@@ -43,6 +45,18 @@ private:
         glfwDestroyWindow(window);
 
         glfwTerminate();
+    }
+
+// Init vulkan methods
+private:
+    void createInstance() {
+        VkApplicationInfo appInfo{};
+        appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+        appInfo.pApplicationName = "Vulkan Test";
+        appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
+        appInfo.pEngineName = "No Engine";
+        appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
+        appInfo.apiVersion = VK_API_VERSION_1_0;
     }
 };
 
